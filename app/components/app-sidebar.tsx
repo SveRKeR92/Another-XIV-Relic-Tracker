@@ -17,19 +17,19 @@ const items = [
   },
   {
     title: "Anima Weapons (HW)",
-    url: "#",
+    url: "anima",
   },
   {
     title: "Eureka Weapons (SB)",
-    url: "#",
+    url: "eureka",
   },
   {
     title: "Resistance Weapons (SHB)",
-    url: "#",
+    url: "resistance",
   },
   {
     title: "Manderville Weapons (EW)",
-    url: "#",
+    url: "manderville",
   },
 ]
 

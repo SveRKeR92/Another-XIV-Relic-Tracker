@@ -4,7 +4,7 @@ import { WeaponsTable } from "@/components/weapons-table";
 import { InventoryTable } from "@/components/inventory-table";
 import { useState, useCallback, useMemo, useEffect } from "react";
 
-export default function WeaponProgressTracker() {
+export default function ZodiacTracker() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [inventory, setInventory] = useState<Record<string, number>>({});
@@ -187,8 +187,8 @@ export default function WeaponProgressTracker() {
 
 
   return (
-    <div className="p-4 space-y-6">
-      <h1 className="text-2xl font-bold">Zodiac Weapons Upgrade Progress</h1>
+    <div className="p-16 space-y-6">
+      <h1 className="text-2xl font-bold">Zodiac Weapons Progress</h1>
       
       <div className="flex justify-between gap-16">
       <WeaponsTable 
