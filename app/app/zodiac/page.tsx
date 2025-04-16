@@ -44,15 +44,34 @@ export default function WeaponProgressTracker() {
     const savedWeaponProgress = localStorage.getItem("zodiacWeaponProgress");
 
     setInventory(savedInventory ? JSON.parse(savedInventory) : {
-      relic: 0,
-      zenith: 0,
+      relicQuenchingOil: 0,
+      zenithThavMist: 0,
       atma: 0,
-      animus: 0,
+      animusBooks: 0,
       novusInk: 0,
       novusMateria: 0,
       novusAlexandrite: 0,
-      zodiacBombard: 0,
-      zodiacSacred: 0,
+
+      zodiacBombardCore: 0,
+      zodiacSacredWater: 0,
+
+      zodiacBronzeLakeCristal: 0,
+      zodiacPerfectFirewood: 0,
+      zodiacFurnaceRing: 0,
+
+      zodiacBrassKettle: 0,
+      zodiacEelPie: 0,
+      zodiacPerfectCloth: 0,
+
+      zodiacAllaganResin: 0,
+      zodiacPerfectMortar: 0,
+      zodiacPerfectPestle: 0,
+
+      zodiacFuriteSand: 0,
+      zodiacPerfectVellum: 0,
+      zodiacPerfectPounce: 0,
+
+      zetaMahatma: 0,
     });
 
     if (savedWeaponProgress) {
@@ -86,15 +105,28 @@ export default function WeaponProgressTracker() {
 
   // Calculate materials needed using useMemo to prevent unnecessary recalculations
   const materials = useMemo(() => [
-    { id: 'relic', name: 'Radz-at-Han Quenching Oil', category: 'Relic' },
-    { id: 'zenith', name: 'Thavnairian Mist', category: 'Zenith' },
+    { id: 'relicQuenchingOil', name: 'Radz-at-Han Quenching Oil', category: 'Relic' },
+    { id: 'zenithThavMist', name: 'Thavnairian Mist', category: 'Zenith' },
     { id: 'atma', name: 'Atmas', category: 'Atma' },
-    { id: 'animus', name: 'Books', category: 'Animus' },
+    { id: 'animusBooks', name: 'Books', category: 'Animus' },
     { id: 'novusInk', name: 'Novus Ink', category: 'Novus' },
     { id: 'novusMateria', name: 'Novus Materia', category: 'Novus' },
     { id: 'novusAlexandrite', name: 'Novus Alexandrite', category: 'Novus' },
-    { id: 'zodiacBombard', name: 'Bombard Core', category: 'Zodiac' },
-    { id: 'zodiacSacred', name: 'Sacred Spring Water', category: 'Zodiac' },
+    { id: 'zodiacBombardCore', name: 'Bombard Core', category: 'Zodiac' },
+    { id: 'zodiacSacredWater', name: 'Sacred Spring Water', category: 'Zodiac' },
+    { id: 'zodiacBronzeLakeCristal', name: 'Bronze Lake Crystal', category: 'Zodiac' },
+    { id: 'zodiacPerfectFirewood', name: 'HQ Perfect Firewood', category: 'Zodiac' },
+    { id: 'zodiacFurnaceRing', name: 'HQ Furnace Ring', category: 'Zodiac' },
+    { id: 'zodiacBrassKettle', name: 'Brass Kettle', category: 'Zodiac' },
+    { id: 'zodiacEelPie', name: 'HQ Tailor-made Eel Pie', category: 'Zodiac' },
+    { id: 'zodiacPerfectCloth', name: 'HQ Perfect Cloth', category: 'Zodiac' },
+    { id: 'zodiacAllaganResin', name: 'Allagan Resin', category: 'Zodiac' },
+    { id: 'zodiacPerfectMortar', name: 'HQ Perfect Mortar', category: 'Zodiac' },
+    { id: 'zodiacPerfectPestle', name: 'HQ Perfect Pestle', category: 'Zodiac' },
+    { id: 'zodiacFuriteSand', name: 'Furite Sand', category: 'Zodiac' },
+    { id: 'zodiacPerfectVellum', name: 'HQ Perfect Vellum', category: 'Zodiac' },
+    { id: 'zodiacPerfectPounce', name: 'HQ Perfect Pounce', category: 'Zodiac' },
+    { id: 'zetaMahatma', name: 'Mahatma', category: 'Zeta' },
   ], []);
 
   const materialData = useMemo(() => {
@@ -116,15 +148,28 @@ export default function WeaponProgressTracker() {
 
   function calculateNeeded(materialId: string): number {
     switch(materialId) {
-      case 'relic': return ARR_JOBS_COUNT - (weaponCounts['step1'] || 0);
-      case 'zenith': return 5 * (ARR_JOBS_COUNT - (weaponCounts['step2'] || 0));
+      case 'relicQuenchingOil': return ARR_JOBS_COUNT - (weaponCounts['step1'] || 0);
+      case 'zenithThavMist': return 5 * (ARR_JOBS_COUNT - (weaponCounts['step2'] || 0));
       case 'atma': return 12 * (ARR_JOBS_COUNT - (weaponCounts['step3'] || 0));
-      case 'animus': return 9 * (ARR_JOBS_COUNT - (weaponCounts['step4'] || 0));
+      case 'animusBooks': return 9 * (ARR_JOBS_COUNT - (weaponCounts['step4'] || 0));
       case 'novusInk': return 3 * (ARR_JOBS_COUNT - (weaponCounts['step5'] || 0));
-      case 'novusMateria': 
+      case 'novusMateria': return 75 * (ARR_JOBS_COUNT - (weaponCounts['step5'] || 0));
       case 'novusAlexandrite': return 75 * (ARR_JOBS_COUNT - (weaponCounts['step5'] || 0));
-      case 'zodiacBombard': 
-      case 'zodiacSacred': return 4 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacBombardCore': return 4 * (ARR_JOBS_COUNT - (weaponCounts['step6'] || 0));
+      case 'zodiacSacredWater': return 4 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacBronzeLakeCristal': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacPerfectFirewood': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacFurnaceRing': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacBrassKettle': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacEelPie': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacPerfectCloth': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacAllaganResin': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacPerfectMortar': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacPerfectPestle': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacFuriteSand': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacPerfectVellum': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zodiacPerfectPounce': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
+      case 'zetaMahatma': return 12 * (ARR_JOBS_COUNT - (weaponCounts['step8'] || 0));
       default: return 0;
     }
   }
@@ -143,8 +188,9 @@ export default function WeaponProgressTracker() {
 
   return (
     <div className="p-4 space-y-6">
-      <h1 className="text-2xl font-bold">Weapon Upgrade Progress</h1>
+      <h1 className="text-2xl font-bold">Zodiac Weapons Upgrade Progress</h1>
       
+      <div className="flex justify-between gap-16">
       <WeaponsTable 
         weapons={weapons} 
         steps={steps} 
@@ -155,7 +201,9 @@ export default function WeaponProgressTracker() {
       <InventoryTable 
         materials={materialData} 
         onInventoryChange={handleInventoryChange} 
+        isLoading={isLoading}
       />
+      </div>
       
     </div>
   );
