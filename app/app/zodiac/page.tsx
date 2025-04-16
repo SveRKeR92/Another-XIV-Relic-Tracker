@@ -129,24 +129,7 @@ export default function ZodiacTracker() {
     { id: 'zetaMahatma', name: 'Mahatma', category: 'Zeta' },
   ], []);
 
-  const materialData = useMemo(() => {
-    return materials.map(material => {
-      const needed = calculateNeeded(material.id);
-      const held = inventory[material.id] || 0;
-      const remaining = Math.max(0, needed - held);
-      const progress = needed > 0 ? Math.min(100, (held / needed) * 100) : 100;
-
-      return {
-        ...material,
-        needed,
-        held,
-        remaining,
-        progress
-      };
-    });
-  }, [inventory, weaponCounts, materials]);
-
-  function calculateNeeded(materialId: string): number {
+  const calculateNeeded = useCallback((materialId: string): number => {
     switch(materialId) {
       case 'relicQuenchingOil': return ARR_JOBS_COUNT - (weaponCounts['step1'] || 0);
       case 'zenithThavMist': return 5 * (ARR_JOBS_COUNT - (weaponCounts['step2'] || 0));
@@ -172,7 +155,24 @@ export default function ZodiacTracker() {
       case 'zetaMahatma': return 12 * (ARR_JOBS_COUNT - (weaponCounts['step8'] || 0));
       default: return 0;
     }
-  }
+  }, [weaponCounts]);
+
+  const materialData = useMemo(() => {
+    return materials.map(material => {
+      const needed = calculateNeeded(material.id);
+      const held = inventory[material.id] || 0;
+      const remaining = Math.max(0, needed - held);
+      const progress = needed > 0 ? Math.min(100, (held / needed) * 100) : 100;
+
+      return {
+        ...material,
+        needed,
+        held,
+        remaining,
+        progress
+      };
+    });
+  }, [inventory, materials, calculateNeeded]);
 
   const handleInventoryChange = useCallback((materialId: string, value: number) => {
     setInventory(prev => {

@@ -13,7 +13,7 @@ export default function Home() {
         <p>
           I mostly wanted to create an alternative to the many different relic weapon trackers out there, one that can regroup the relics for all expansions in one place.
         </p>
-          No login required, everything is stored in your browser local storage, you won't lose your data unless you clear your browser data.
+          No login required, everything is stored in your browser local storage, you won&apos;t lose your data unless you clear your browser data.
         <p>
           You can find me on Github / Discord, feel free to reach out if you have any questions or suggestions.
         </p>
