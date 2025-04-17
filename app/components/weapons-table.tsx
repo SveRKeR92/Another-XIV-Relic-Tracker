@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Skeleton } from "./ui/skeleton";
 
 interface Weapon {
   id: string;
@@ -68,19 +69,42 @@ export const WeaponsTable: React.FC<CheckboxTableProps> = ({
   const handleCheckboxChange = (stepId: string, weaponId: string) => {
     setCheckedState(prev => {
       if (!prev) return prev;
-      return {
-        ...prev,
-        [stepId]: {
-          ...prev[stepId],
-          [weaponId]: !prev[stepId][weaponId],
-        },
-      };
-    });
+
+      const currentValue = prev[stepId][weaponId];
+      const newState = { ...prev };
+      let currentStepFound = false;
+
+      steps.forEach(step => {
+        if (step.id === stepId) {
+          currentStepFound = true;
+        }
+
+        if (currentValue) {
+          // Unchecking: uncheck this and all subsequent steps
+          if (currentStepFound) {
+            newState[step.id] = {
+              ...newState[step.id],
+              [weaponId]: false,
+            };
+          }
+        } else {
+          // Checking: check this and all previous steps
+          if (!currentStepFound || step.id === stepId) {
+            newState[step.id] = {
+              ...newState[step.id],
+              [weaponId]: true,
+            };
+          }
+        }
+      });
+
+      return newState;
+      });
   };
   
   // Don't render until mounted to avoid hydration mismatch
   if (!isMounted || !checkedState) {
-    return <div className="min-h-[300px] flex items-center justify-center">Loading weapon progress...</div>;
+    return <Skeleton className="h-60 w-200" />;
   }
 
   return (

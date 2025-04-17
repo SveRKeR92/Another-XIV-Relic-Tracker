@@ -2,6 +2,7 @@
 
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "./ui/skeleton";
 
 interface Inventory {
   id: string;
@@ -22,11 +23,7 @@ interface InventoryProps {
 export function InventoryTable({ materials, onInventoryChange, isLoading }: InventoryProps) {
 
 if (isLoading) {
-    return (
-        <div className="flex items-center justify-center h-full">
-        <span className="text-muted-foreground">Loading inventory...</span>
-        </div>
-    );
+    return <Skeleton className="h-96 w-200" />;
 }
 
   return (
