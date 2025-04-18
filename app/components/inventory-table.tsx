@@ -33,10 +33,10 @@ if (isLoading) {
         <TableHeader>
           <TableRow>
             <TableHead className="w-[200px]">Material</TableHead>
-            <TableHead className="text-right">Held</TableHead>
-            <TableHead className="text-right">Remaining</TableHead>
-            <TableHead className="text-right">Per Weapon</TableHead>
-            <TableHead className="text-right">Progress</TableHead>
+            <TableHead className="text-center">Held</TableHead>
+            <TableHead className="text-center">Remaining</TableHead>
+            <TableHead className="text-center">Per Weapon</TableHead>
+            <TableHead className="text-center">Progress</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
