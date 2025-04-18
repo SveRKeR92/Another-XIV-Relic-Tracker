@@ -43,38 +43,25 @@ export default function AnimaTracker() {
   useEffect(() => {
     setIsLoading(true);
     
-    const savedInventory = localStorage.getItem("zodiacInventory");
-    const savedWeaponProgress = localStorage.getItem("zodiacWeaponProgress");
+    const savedInventory = localStorage.getItem("animaInventory");
+    const savedWeaponProgress = localStorage.getItem("animaWeaponProgress");
 
     setInventory(savedInventory ? JSON.parse(savedInventory) : {
-      relicQuenchingOil: 0,
-      zenithThavMist: 0,
-      atma: 0,
-      animusBooks: 0,
-      novusInk: 0,
-      novusMateria: 0,
-      novusAlexandrite: 0,
-
-      zodiacBombardCore: 0,
-      zodiacSacredWater: 0,
-
-      zodiacBronzeLakeCristal: 0,
-      zodiacPerfectFirewood: 0,
-      zodiacFurnaceRing: 0,
-
-      zodiacBrassKettle: 0,
-      zodiacEelPie: 0,
-      zodiacPerfectCloth: 0,
-
-      zodiacAllaganResin: 0,
-      zodiacPerfectMortar: 0,
-      zodiacPerfectPestle: 0,
-
-      zodiacFuriteSand: 0,
-      zodiacPerfectVellum: 0,
-      zodiacPerfectPounce: 0,
-
-      zetaMahatma: 0,
+      animCrystals: 0,
+      animBone: 0,
+      animFran: 0,
+      animShell: 0,
+      animAlloy: 0,
+      animOre: 0,
+      animArrow: 0,
+      animSeeds: 0,
+      animCake: 0,
+      hyperOil: 0,
+      reconUmbr: 0,
+      reconSand: 0,
+      sharpCluster: 0,
+      complPneu: 0,
+      luxInk: 0,
     });
 
     if (savedWeaponProgress) {
@@ -103,7 +90,7 @@ export default function AnimaTracker() {
       if (JSON.stringify(prev) === JSON.stringify(counts)) return prev;
       return counts;
     });
-    localStorage.setItem("zodiacWeaponProgress", JSON.stringify(data));
+    localStorage.setItem("animaWeaponProgress", JSON.stringify(data));
   }, []);
 
   // Calculate materials needed using useMemo to prevent unnecessary recalculations
