@@ -44,7 +44,7 @@ export default function RootLayout({
               <div className="fixed top-4 right-4 z-50">
                 <ModeToggle />
               </div>
-              <SidebarTrigger />
+              <SidebarTrigger className="fixed"/>
               {children}
             </main>
           </SidebarProvider>
