@@ -162,7 +162,7 @@ export default function AnimaTracker() {
         case 'reconSand': return material.needed * weaponCounts['step5'] + held;
         case 'sharpCluster': return material.needed * weaponCounts['step6'] + held;
         case 'complPneu': return material.needed * weaponCounts['step7'] + held;
-        case 'luxInk': return material.needed * weaponCounts['step7'] + held;
+        case 'luxInk': return material.needed * weaponCounts['step8'] + held;
         default: return held;
     }
 
