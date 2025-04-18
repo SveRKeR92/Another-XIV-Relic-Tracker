@@ -2,7 +2,8 @@
 
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Progress } from "@/components/ui/progress";
 
 interface Inventory {
   id: string;
@@ -34,6 +35,7 @@ if (isLoading) {
             <TableHead className="w-[200px]">Material</TableHead>
             <TableHead className="text-right">Held</TableHead>
             <TableHead className="text-right">Remaining</TableHead>
+            <TableHead className="text-right">Per Weapon</TableHead>
             <TableHead className="text-right">Progress</TableHead>
           </TableRow>
         </TableHeader>
@@ -62,7 +64,15 @@ if (isLoading) {
               </TableCell>
               <TableCell className="text-right">
                 <span className="text-sm text-muted-foreground w-10">
-                    {Math.round(material.progress)}%
+                  {material.needed}
+                </span>
+              </TableCell>
+              <TableCell className="text-right flex items-center justify-end w-24">
+                <Progress
+                  value={material.progress}
+                />
+                <span className="text-sm text-muted-foreground w-10">
+                  {material.progress.toFixed(0)}%
                 </span>
               </TableCell>
             </TableRow>

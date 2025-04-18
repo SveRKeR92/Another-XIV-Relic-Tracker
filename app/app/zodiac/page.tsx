@@ -34,7 +34,7 @@ export default function ZodiacTracker() {
     { id: 'step8', name: 'Zodiac Zeta' },
   ];
 
-  const ARR_JOBS_COUNT = 10;
+  const JOBS_COUNT = weapons.length;
 
   // Initialize state from localStorage after mount
   useEffect(() => {
@@ -105,72 +105,102 @@ export default function ZodiacTracker() {
 
   // Calculate materials needed using useMemo to prevent unnecessary recalculations
   const materials = useMemo(() => [
-    { id: 'relicQuenchingOil', name: 'Radz-at-Han Quenching Oil', category: 'Relic' },
-    { id: 'zenithThavMist', name: 'Thavnairian Mist', category: 'Zenith' },
-    { id: 'atma', name: 'Atmas', category: 'Atma' },
-    { id: 'animusBooks', name: 'Books', category: 'Animus' },
-    { id: 'novusInk', name: 'Novus Ink', category: 'Novus' },
-    { id: 'novusMateria', name: 'Novus Materia', category: 'Novus' },
-    { id: 'novusAlexandrite', name: 'Novus Alexandrite', category: 'Novus' },
-    { id: 'zodiacBombardCore', name: 'Bombard Core', category: 'Zodiac' },
-    { id: 'zodiacSacredWater', name: 'Sacred Spring Water', category: 'Zodiac' },
-    { id: 'zodiacBronzeLakeCristal', name: 'Bronze Lake Crystal', category: 'Zodiac' },
-    { id: 'zodiacPerfectFirewood', name: 'HQ Perfect Firewood', category: 'Zodiac' },
-    { id: 'zodiacFurnaceRing', name: 'HQ Furnace Ring', category: 'Zodiac' },
-    { id: 'zodiacBrassKettle', name: 'Brass Kettle', category: 'Zodiac' },
-    { id: 'zodiacEelPie', name: 'HQ Tailor-made Eel Pie', category: 'Zodiac' },
-    { id: 'zodiacPerfectCloth', name: 'HQ Perfect Cloth', category: 'Zodiac' },
-    { id: 'zodiacAllaganResin', name: 'Allagan Resin', category: 'Zodiac' },
-    { id: 'zodiacPerfectMortar', name: 'HQ Perfect Mortar', category: 'Zodiac' },
-    { id: 'zodiacPerfectPestle', name: 'HQ Perfect Pestle', category: 'Zodiac' },
-    { id: 'zodiacFuriteSand', name: 'Furite Sand', category: 'Zodiac' },
-    { id: 'zodiacPerfectVellum', name: 'HQ Perfect Vellum', category: 'Zodiac' },
-    { id: 'zodiacPerfectPounce', name: 'HQ Perfect Pounce', category: 'Zodiac' },
-    { id: 'zetaMahatma', name: 'Mahatma', category: 'Zeta' },
+    { id: 'relicQuenchingOil', name: 'Radz-at-Han Quenching Oil', category: 'Relic', needed: 1 },
+    { id: 'zenithThavMist', name: 'Thavnairian Mist', category: 'Zenith', needed: 5 },
+    { id: 'atma', name: 'Atmas', category: 'Atma', needed: 12 },
+    { id: 'animusBooks', name: 'Books', category: 'Animus', needed: 9 },
+    { id: 'novusInk', name: 'Novus Ink', category: 'Novus', needed: 3 },
+    { id: 'novusMateria', name: 'Novus Materia', category: 'Novus', needed: 75 },
+    { id: 'novusAlexandrite', name: 'Novus Alexandrite', category: 'Novus', needed: 75 },
+    { id: 'zodiacBombardCore', name: 'Bombard Core', category: 'Zodiac', needed: 4 },
+    { id: 'zodiacSacredWater', name: 'Sacred Spring Water', category: 'Zodiac', needed: 4 },
+    { id: 'zodiacBronzeLakeCristal', name: 'Bronze Lake Crystal', category: 'Zodiac', needed: 1 },
+    { id: 'zodiacPerfectFirewood', name: 'HQ Perfect Firewood', category: 'Zodiac', needed: 1 },
+    { id: 'zodiacFurnaceRing', name: 'HQ Furnace Ring', category: 'Zodiac', needed: 1 },
+    { id: 'zodiacBrassKettle', name: 'Brass Kettle', category: 'Zodiac', needed: 1 },
+    { id: 'zodiacEelPie', name: 'HQ Tailor-made Eel Pie', category: 'Zodiac', needed: 1 },
+    { id: 'zodiacPerfectCloth', name: 'HQ Perfect Cloth', category: 'Zodiac', needed: 1 },
+    { id: 'zodiacAllaganResin', name: 'Allagan Resin', category: 'Zodiac', needed: 1 },
+    { id: 'zodiacPerfectMortar', name: 'HQ Perfect Mortar', category: 'Zodiac', needed: 1 },
+    { id: 'zodiacPerfectPestle', name: 'HQ Perfect Pestle', category: 'Zodiac', needed: 1 },
+    { id: 'zodiacFuriteSand', name: 'Furite Sand', category: 'Zodiac', needed: 1 },
+    { id: 'zodiacPerfectVellum', name: 'HQ Perfect Vellum', category: 'Zodiac', needed: 1 },
+    { id: 'zodiacPerfectPounce', name: 'HQ Perfect Pounce', category: 'Zodiac', needed: 1 },
+    { id: 'zetaMahatma', name: 'Mahatma', category: 'Zeta', needed: 12 },
   ], []);
 
-  const calculateNeeded = useCallback((materialId: string): number => {
-    switch(materialId) {
-      case 'relicQuenchingOil': return ARR_JOBS_COUNT - (weaponCounts['step1'] || 0);
-      case 'zenithThavMist': return 5 * (ARR_JOBS_COUNT - (weaponCounts['step2'] || 0));
-      case 'atma': return 12 * (ARR_JOBS_COUNT - (weaponCounts['step3'] || 0));
-      case 'animusBooks': return 9 * (ARR_JOBS_COUNT - (weaponCounts['step4'] || 0));
-      case 'novusInk': return 3 * (ARR_JOBS_COUNT - (weaponCounts['step5'] || 0));
-      case 'novusMateria': return 75 * (ARR_JOBS_COUNT - (weaponCounts['step5'] || 0));
-      case 'novusAlexandrite': return 75 * (ARR_JOBS_COUNT - (weaponCounts['step5'] || 0));
-      case 'zodiacBombardCore': return 4 * (ARR_JOBS_COUNT - (weaponCounts['step6'] || 0));
-      case 'zodiacSacredWater': return 4 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zodiacBronzeLakeCristal': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zodiacPerfectFirewood': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zodiacFurnaceRing': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zodiacBrassKettle': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zodiacEelPie': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zodiacPerfectCloth': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zodiacAllaganResin': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zodiacPerfectMortar': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zodiacPerfectPestle': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zodiacFuriteSand': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zodiacPerfectVellum': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zodiacPerfectPounce': return 1 * (ARR_JOBS_COUNT - (weaponCounts['step7'] || 0));
-      case 'zetaMahatma': return 12 * (ARR_JOBS_COUNT - (weaponCounts['step8'] || 0));
+  const calculateNeeded = useCallback((material: {id: string, needed: number}): number => {
+    switch(material.id) {
+      case 'relicQuenchingOil': return material.needed * JOBS_COUNT
+      case 'zenithThavMist': return material.needed * JOBS_COUNT
+      case 'atma': return material.needed * JOBS_COUNT
+      case 'animusBooks': return material.needed * JOBS_COUNT
+      case 'novusInk': return material.needed * JOBS_COUNT
+      case 'novusMateria': return material.needed * JOBS_COUNT
+      case 'novusAlexandrite': return material.needed * JOBS_COUNT
+      case 'zodiacBombardCore': return material.needed * JOBS_COUNT
+      case 'zodiacSacredWater': return material.needed * JOBS_COUNT
+      case 'zodiacBronzeLakeCristal': return material.needed * JOBS_COUNT
+      case 'zodiacPerfectFirewood': return material.needed * JOBS_COUNT
+      case 'zodiacFurnaceRing': return material.needed * JOBS_COUNT
+      case 'zodiacBrassKettle': return material.needed * JOBS_COUNT
+      case 'zodiacEelPie': return material.needed * JOBS_COUNT
+      case 'zodiacPerfectCloth': return material.needed * JOBS_COUNT
+      case 'zodiacAllaganResin': return material.needed * JOBS_COUNT
+      case 'zodiacPerfectMortar': return material.needed * JOBS_COUNT
+      case 'zodiacPerfectPestle': return material.needed * JOBS_COUNT
+      case 'zodiacFuriteSand': return material.needed * JOBS_COUNT
+      case 'zodiacPerfectVellum': return material.needed * JOBS_COUNT
+      case 'zodiacPerfectPounce': return material.needed * JOBS_COUNT
+      case 'zetaMahatma': return material.needed * JOBS_COUNT
+      default: return 0;
+    }
+  }, [weaponCounts]);
+
+  const calculateTotalMaterials = useCallback((material: {id: string, needed: number}, held: number) => {
+    switch(material.id) {
+      case 'relicQuenchingOil': return material.needed * weaponCounts['step1'] + held;
+      case 'zenithThavMist': return material.needed * weaponCounts['step2'] + held;
+      case 'atma': return material.needed * weaponCounts['step3'] + held;
+      case 'animusBooks': return material.needed * weaponCounts['step4'] + held;
+      case 'novusInk': return material.needed * weaponCounts['step5'] + held;
+      case 'novusMateria': return material.needed * weaponCounts['step5'] + held;
+      case 'novusAlexandrite': return material.needed * weaponCounts['step5'] + held;
+      case 'zodiacBombardCore': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacSacredWater': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacBronzeLakeCristal': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacPerfectFirewood': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacFurnaceRing': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacBrassKettle': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacEelPie': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacPerfectCloth': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacAllaganResin': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacPerfectMortar': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacPerfectPestle': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacFuriteSand': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacPerfectVellum': return material.needed * weaponCounts['step7'] + held;
+      case 'zodiacPerfectPounce': return material.needed * weaponCounts['step7'] + held;
+      case 'zetaMahatma': return material.needed * weaponCounts['step8'] + held;
       default: return 0;
     }
   }, [weaponCounts]);
 
   const materialData = useMemo(() => {
     return materials.map(material => {
-      const needed = calculateNeeded(material.id);
-      const held = inventory[material.id] || 0;
-      const remaining = Math.max(0, needed - held);
-      const progress = needed > 0 ? Math.min(100, (held / needed) * 100) : 100;
+        const totalNeeded = calculateNeeded(material);
+        const held = inventory[material.id] || 0;
+        const totalHeldMaterials = calculateTotalMaterials(material, held);
+        const remaining = Math.max(0, totalNeeded - totalHeldMaterials);
+        const progress = totalNeeded > 0 ? Math.min(100, (totalHeldMaterials / totalNeeded) * 100) : 100;
 
-      return {
-        ...material,
-        needed,
-        held,
-        remaining,
-        progress
-      };
+        return {
+            ...material,
+            totalNeeded,
+            held,
+            totalHeldMaterials,
+            remaining,
+            progress
+        };
     });
   }, [inventory, materials, calculateNeeded]);
 
