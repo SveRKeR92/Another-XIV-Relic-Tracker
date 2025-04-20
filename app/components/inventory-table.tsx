@@ -28,8 +28,8 @@ if (isLoading) {
 }
 
   return (
-    <div className="rounded-md border">
-      <Table>
+    <div className="rounded-md border w-fit">
+      <Table className="w-fit">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[200px]">Material</TableHead>

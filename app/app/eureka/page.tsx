@@ -159,7 +159,7 @@ export default function EurekaTracker() {
       if (prev[materialId] === newValue) return prev;
       
       const newInventory = { ...prev, [materialId]: newValue };
-      localStorage.setItem("eurekaInventory", JSON.stringify(newInventory));
+      localStorage.setItem("animaInventory", JSON.stringify(newInventory));
       return newInventory;
     });
   }, []);
@@ -169,7 +169,7 @@ export default function EurekaTracker() {
     <div className="p-16 space-y-6">
       <h1 className="text-2xl font-bold">Eureka Weapons Progress</h1>
       
-      <div className="flex justify-between gap-16">
+      <div className="flex flex-col gap-8">
       <WeaponsTable 
         weapons={weapons} 
         steps={steps} 
