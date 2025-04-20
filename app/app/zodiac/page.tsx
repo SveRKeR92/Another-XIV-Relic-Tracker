@@ -106,7 +106,7 @@ export default function ZodiacTracker() {
   // Calculate materials needed using useMemo to prevent unnecessary recalculations
   const materials = useMemo(() => [
     { id: 'relicQuenchingOil', name: 'Radz-at-Han Quenching Oil', category: 'Relic', needed: 1 },
-    { id: 'zenithThavMist', name: 'Thavnairian Mist', category: 'Zenith', needed: 5 },
+    { id: 'zenithThavMist', name: 'Thavnairian Mist', category: 'Zenith', needed: 3 },
     { id: 'atma', name: 'Atmas', category: 'Atma', needed: 12 },
     { id: 'animusBooks', name: 'Books', category: 'Animus', needed: 9 },
     { id: 'novusInk', name: 'Novus Ink', category: 'Novus', needed: 3 },
