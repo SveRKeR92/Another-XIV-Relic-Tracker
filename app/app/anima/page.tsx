@@ -95,7 +95,7 @@ export default function AnimaTracker() {
 
   // Calculate materials needed using useMemo to prevent unnecessary recalculations
   const materials = useMemo(() => [
-    { id: 'animCrystals', name: 'ElementalCrystals', category: 'Animated', needed: 6 },
+    { id: 'animCrystals', name: 'Elemental Crystals', category: 'Animated', needed: 6 },
     { id: 'animBone', name: 'Unidentifiable Bone', category: 'Anima', needed: 10 },
     { id: 'animFran', name: 'Adamantite Francesca', category: 'Anima', needed: 4 },
     { id: 'animShell', name: 'Unidentifiable Shell', category: 'Anima', needed: 10 },
