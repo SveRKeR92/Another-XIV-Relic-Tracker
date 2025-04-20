@@ -25,7 +25,6 @@ export default function ResistanceTracker() {
     { id: 'brd', name: 'BRD' },
     { id: 'mch', name: 'MCH' },
     { id: 'dnc', name: 'DNC' },
-
     { id: 'blm', name: 'BLM' },
     { id: 'smn', name: 'SMN' },
     { id: 'rdm', name: 'RDM' },
