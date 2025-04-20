@@ -19,18 +19,21 @@ export default function Home() {
         <a 
           href="https://github.com/SveRKeR92" 
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          target="_blank"
         >
           <Github/> My Github
         </a>
         <a
           href="https://discord.com/users/321982838151053312"
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          target="_blank"
         >
           <MessageCircle/> My Discord
         </a>
         <a
           href="https://www.twitch.tv/sverker__"
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          target="_blank"
         >
           <Twitch/> I stream sometimes !
         </a>
