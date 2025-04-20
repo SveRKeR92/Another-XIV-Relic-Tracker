@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react"
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
@@ -50,6 +51,7 @@ export default function RootLayout({
             </main>
           </SidebarProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
