@@ -8,9 +8,6 @@ export default function Home() {
           Welcome to another FFXIV Relic Weapon Tracker !
         </h1>
         <p>
-          I am currently working on this project, so please be patient with me.
-        </p>
-        <p>
           I mostly wanted to create an alternative to the many different relic weapon trackers out there, one that can regroup the relics for all expansions in one place.
         </p>
           No login required, everything is stored in your browser local storage, you won&apos;t lose your data unless you clear your browser data.
