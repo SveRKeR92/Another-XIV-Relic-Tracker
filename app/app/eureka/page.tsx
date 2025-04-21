@@ -159,7 +159,7 @@ export default function EurekaTracker() {
       if (prev[materialId] === newValue) return prev;
       
       const newInventory = { ...prev, [materialId]: newValue };
-      localStorage.setItem("animaInventory", JSON.stringify(newInventory));
+      localStorage.setItem("eurekaInventory", JSON.stringify(newInventory));
       return newInventory;
     });
   }, []);
