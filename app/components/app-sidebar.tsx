@@ -9,6 +9,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import Link from "next/link"
+import { title } from "process"
 
 // Menu items.
 const items = [
@@ -32,6 +33,10 @@ const items = [
     title: "Manderville Weapons (EW)",
     url: "manderville",
   },
+  {
+    title: "Phantom Weapons (DT)",
+    url: "phantom",
+  }
 ]
 
 export function AppSidebar() {
