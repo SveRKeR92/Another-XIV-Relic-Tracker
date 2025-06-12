@@ -209,7 +209,7 @@ export default function MandervilleTracker() {
     { id: 'aetherspunSilver', name: 'Aetherspun Silver', category: 'Phantom Armor', needed: 3 },
     { id: 'aetherialFixative', name: 'Aetherial Fixative', category: 'Phantom Armor', needed: 3 },
     { id: 'aetherspunGold', name: 'Aetherspun Gold', category: 'Phantom Armor', needed: 3 },
-    { id: 'xFixative', name: 'X-Fixative', category: 'Phantom Armor', needed: 3 },
+    { id: 'xFixative', name: 'X-Fixative', category: 'Phantom Armor', needed: 6 },
   ], []);
 
   const calculateArmorNeeded = useCallback((material: {id: string, needed: number}): number => {
