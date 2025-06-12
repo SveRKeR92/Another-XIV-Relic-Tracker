@@ -198,7 +198,8 @@ export default function AnimaTracker() {
         onToggleChange={handleToggleChange} 
       />
 
-      <InventoryTable 
+      <InventoryTable
+        inventoryType="Weapon" 
         materials={materialData} 
         onInventoryChange={handleInventoryChange} 
         isLoading={isLoading}

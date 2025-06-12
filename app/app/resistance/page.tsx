@@ -173,6 +173,7 @@ export default function ResistanceTracker() {
       />
 
       <InventoryTable 
+        inventoryType="Weapon"
         materials={materialData} 
         onInventoryChange={handleInventoryChange} 
         isLoading={isLoading}

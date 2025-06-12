@@ -178,6 +178,7 @@ export default function EurekaTracker() {
       />
 
       <InventoryTable 
+        inventoryType="Weapon"
         materials={materialData} 
         onInventoryChange={handleInventoryChange} 
         isLoading={isLoading}

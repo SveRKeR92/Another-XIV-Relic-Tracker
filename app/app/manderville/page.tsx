@@ -157,6 +157,7 @@ export default function MandervilleTracker() {
       />
 
       <InventoryTable 
+        inventoryType="Weapon"
         materials={materialData} 
         onInventoryChange={handleInventoryChange} 
         isLoading={isLoading}

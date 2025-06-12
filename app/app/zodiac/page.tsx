@@ -229,6 +229,7 @@ export default function ZodiacTracker() {
       />
 
       <InventoryTable 
+        inventoryType="Weapon"
         materials={materialData} 
         onInventoryChange={handleInventoryChange} 
         isLoading={isLoading}

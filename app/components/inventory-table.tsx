@@ -16,12 +16,13 @@ interface Inventory {
 }
 
 interface InventoryProps {
+  inventoryType: "Weapon" | "Armor";
   materials: Inventory[];
   onInventoryChange: (materialId: string, value: number) => void;
   isLoading?: boolean;
 }
 
-export function InventoryTable({ materials, onInventoryChange, isLoading }: InventoryProps) {
+export function InventoryTable({ inventoryType, materials, onInventoryChange, isLoading }: InventoryProps) {
 
 if (isLoading) {
     return <Skeleton className="h-96 w-200" />;
@@ -35,7 +36,7 @@ if (isLoading) {
             <TableHead className="w-[200px]">Material</TableHead>
             <TableHead className="text-center">Held</TableHead>
             <TableHead className="text-center">Remaining</TableHead>
-            <TableHead className="text-center">Per Weapon</TableHead>
+            <TableHead className="text-center">Per {inventoryType}</TableHead>
             <TableHead className="text-center">Progress</TableHead>
           </TableRow>
         </TableHeader>
