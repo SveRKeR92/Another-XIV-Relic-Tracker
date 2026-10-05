@@ -2,6 +2,7 @@
 
 import { WeaponsTable } from "@/components/weapons-table";
 import { InventoryTable } from "@/components/inventory-table";
+import { CurrencyCalculator, type CurrencyCost } from "@/components/currency-calculator";
 import { useState, useCallback, useMemo, useEffect } from "react";
 
 export default function ZodiacTracker() {
@@ -215,6 +216,18 @@ export default function ZodiacTracker() {
     });
   }, []);
 
+  const currencyCosts: CurrencyCost[] = [
+    {
+      id: "poetics",
+      name: "Allagan Tomestones of Poetics",
+      perStep: { step1: 15, step2: 60, step4: 900, step5: 1200, step8: 600 },
+    },
+    {
+      id: "gil",
+      name: "Gil",
+      perStep: { step7: 12000 },
+    },
+  ];
 
   return (
     <div className="p-16 space-y-6">
@@ -233,6 +246,12 @@ export default function ZodiacTracker() {
         materials={materialData} 
         onInventoryChange={handleInventoryChange} 
         isLoading={isLoading}
+      />
+      <CurrencyCalculator
+        totalWeapons={JOBS_COUNT}
+        stepCounts={weaponCounts}
+        currencies={currencyCosts}
+        storageKey="zodiacCurrencyBalances"
       />
       </div>
       

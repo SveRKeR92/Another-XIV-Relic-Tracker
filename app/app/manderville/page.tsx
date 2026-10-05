@@ -2,6 +2,7 @@
 
 import { WeaponsTable } from "@/components/weapons-table";
 import { InventoryTable } from "@/components/inventory-table";
+import { CurrencyCalculator, type CurrencyCost } from "@/components/currency-calculator";
 import { useState, useCallback, useMemo, useEffect } from "react";
 
 export default function MandervilleTracker() {
@@ -143,6 +144,13 @@ export default function MandervilleTracker() {
     });
   }, []);
 
+  const currencyCosts: CurrencyCost[] = [
+    {
+      id: "poetics",
+      name: "Allagan Tomestones of Poetics",
+      perStep: { step1: 1500, step2: 1500, step3: 1500, step4: 1500 },
+    },
+  ];
 
   return (
     <div className="p-16 space-y-6">
@@ -161,6 +169,12 @@ export default function MandervilleTracker() {
         materials={materialData} 
         onInventoryChange={handleInventoryChange} 
         isLoading={isLoading}
+      />
+      <CurrencyCalculator
+        totalWeapons={JOBS_COUNT}
+        stepCounts={weaponCounts}
+        currencies={currencyCosts}
+        storageKey="mandervilleCurrencyBalances"
       />
       </div>
       

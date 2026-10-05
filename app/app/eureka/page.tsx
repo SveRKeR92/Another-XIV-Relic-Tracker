@@ -2,6 +2,7 @@
 
 import { WeaponsTable } from "@/components/weapons-table";
 import { InventoryTable } from "@/components/inventory-table";
+import { CurrencyCalculator, type CurrencyCost } from "@/components/currency-calculator";
 import { useState, useCallback, useMemo, useEffect } from "react";
 
 export default function EurekaTracker() {
@@ -164,6 +165,7 @@ export default function EurekaTracker() {
     });
   }, []);
 
+  const currencyCosts: CurrencyCost[] = [];
 
   return (
     <div className="p-16 space-y-6">
@@ -182,6 +184,12 @@ export default function EurekaTracker() {
         materials={materialData} 
         onInventoryChange={handleInventoryChange} 
         isLoading={isLoading}
+      />
+      <CurrencyCalculator
+        totalWeapons={JOBS_COUNT}
+        stepCounts={weaponCounts}
+        currencies={currencyCosts}
+        storageKey="eurekaCurrencyBalances"
       />
       </div>
       

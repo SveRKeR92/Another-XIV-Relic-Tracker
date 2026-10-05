@@ -2,6 +2,7 @@
 
 import { WeaponsTable } from "@/components/weapons-table";
 import { InventoryTable } from "@/components/inventory-table";
+import { CurrencyCalculator, type CurrencyCost } from "@/components/currency-calculator";
 import { useState, useCallback, useMemo, useEffect } from "react";
 import { ArmorsTable } from "@/components/armors-table";
 
@@ -319,6 +320,26 @@ export default function PhantomTracker() {
     });
   }, []);
 
+  const currencyCosts: CurrencyCost[] = [
+    {
+      id: "mathematics",
+      name: "Allagan Tomestones of Mathematics",
+      perStep: { step1: 1500, step2: 1500, step3: 1500, step4: 1500 },
+    },
+    {
+      id: "bicolorGemstones",
+      name: "Bicolor Gemstones",
+      perStep: {},
+      oneTime: { stepId: "step2", amount: 600 },
+    },
+    {
+      id: "gil",
+      name: "Gil",
+      perStep: {},
+      oneTime: { stepId: "step1", amount: 300000 },
+    },
+  ];
+
   return (
     <div className="p-16 space-y-6">
       <h1 className="text-2xl font-bold">Phantom Weapons Progress</h1>
@@ -336,6 +357,12 @@ export default function PhantomTracker() {
         materials={materialData} 
         onInventoryChange={handleInventoryChange} 
         isLoading={isLoading}
+      />
+      <CurrencyCalculator
+        totalWeapons={JOBS_COUNT}
+        stepCounts={weaponCounts}
+        currencies={currencyCosts}
+        storageKey="phantomCurrencyBalances"
       />
 
       <Accordion type="single" collapsible >

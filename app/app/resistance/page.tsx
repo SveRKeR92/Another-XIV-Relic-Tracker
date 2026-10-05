@@ -2,6 +2,7 @@
 
 import { WeaponsTable } from "@/components/weapons-table";
 import { InventoryTable } from "@/components/inventory-table";
+import { CurrencyCalculator, type CurrencyCost } from "@/components/currency-calculator";
 import { useState, useCallback, useMemo, useEffect } from "react";
 
 export default function ResistanceTracker() {
@@ -123,6 +124,7 @@ export default function ResistanceTracker() {
         case 'bittMem': return material.needed * weaponCounts['step3'] + held;
         case 'loathMem': return material.needed * weaponCounts['step4'] + held;
         case 'timeArt': return material.needed * weaponCounts['step5'] + held;
+        case 'rawEmo': return material.needed * weaponCounts['step6'] + held;
         
         default: return held;
     }
@@ -146,7 +148,7 @@ export default function ResistanceTracker() {
             progress
         };
     });
-  }, [inventory, materials, calculateNeeded]);
+  }, [inventory, materials, calculateNeeded, calculateTotalMaterials]);
 
   const handleInventoryChange = useCallback((materialId: string, value: number) => {
     setInventory(prev => {
@@ -159,6 +161,13 @@ export default function ResistanceTracker() {
     });
   }, []);
 
+  const currencyCosts: CurrencyCost[] = [
+    {
+      id: "poetics",
+      name: "Allagan Tomestones of Poetics",
+      perStep: { step1: 1000 },
+    },
+  ];
 
   return (
     <div className="p-16 space-y-6">
@@ -177,6 +186,12 @@ export default function ResistanceTracker() {
         materials={materialData} 
         onInventoryChange={handleInventoryChange} 
         isLoading={isLoading}
+      />
+      <CurrencyCalculator
+        totalWeapons={JOBS_COUNT}
+        stepCounts={weaponCounts}
+        currencies={currencyCosts}
+        storageKey="resistanceCurrencyBalances"
       />
       </div>
       

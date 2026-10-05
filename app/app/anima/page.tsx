@@ -2,6 +2,7 @@
 
 import { WeaponsTable } from "@/components/weapons-table";
 import { InventoryTable } from "@/components/inventory-table";
+import { CurrencyCalculator, type CurrencyCost } from "@/components/currency-calculator";
 import { useState, useCallback, useMemo, useEffect } from "react";
 
 export default function AnimaTracker() {
@@ -185,6 +186,20 @@ export default function AnimaTracker() {
     });
   }, []);
 
+  const currencyCosts: CurrencyCost[] = [
+    {
+      id: "poetics",
+      name: "Allagan Tomestones of Poetics",
+      perStep: {
+        step3: 27200,
+        step4: 1750,
+        step5: 11250,
+        step6: 2500,
+        step7: 1500,
+        step8: 500,
+      },
+    },
+  ];
 
   return (
     <div className="p-16 space-y-6">
@@ -203,6 +218,12 @@ export default function AnimaTracker() {
         materials={materialData} 
         onInventoryChange={handleInventoryChange} 
         isLoading={isLoading}
+      />
+      <CurrencyCalculator
+        totalWeapons={JOBS_COUNT}
+        stepCounts={weaponCounts}
+        currencies={currencyCosts}
+        storageKey="animaCurrencyBalances"
       />
       </div>
       
