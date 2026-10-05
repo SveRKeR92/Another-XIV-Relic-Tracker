@@ -42,20 +42,18 @@ export const ArmorsTable: React.FC<CheckboxTableProps> = ({
   useEffect(() => {
     setIsMounted(true);
     const savedData = localStorage.getItem(storageKey);
-    
-    if (savedData) {
-      setCheckedState(JSON.parse(savedData));
-    } else {
-      // Initialize empty state
-      const initialState: Record<string, Record<string, boolean>> = {};
-      steps.forEach(step => {
-        initialState[step.id] = {};
-        armors.forEach(armor => {
-          initialState[step.id][armor.id] = false;
-        });
+
+    const savedState = savedData
+      ? JSON.parse(savedData) as Record<string, Record<string, boolean>>
+      : {};
+    const initialState: Record<string, Record<string, boolean>> = {};
+    steps.forEach(step => {
+      initialState[step.id] = {};
+      armors.forEach(armor => {
+        initialState[step.id][armor.id] = savedState[step.id]?.[armor.id] ?? false;
       });
-      setCheckedState(initialState);
-    }
+    });
+    setCheckedState(initialState);
   }, [storageKey, steps, armors]);
 
   // Save to localStorage when state changes

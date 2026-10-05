@@ -12,7 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 
-export default function MandervilleTracker() {
+export default function PhantomTracker() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [inventory, setInventory] = useState<Record<string, number>>({});
@@ -46,6 +46,10 @@ export default function MandervilleTracker() {
 
   const steps = [
     { id: 'step1', name: 'Penumbrae' },
+    { id: 'step2', name: 'Umbrae' },
+    { id: 'step3', name: 'Obscurum' },
+    { id: 'step4', name: 'Eclipticum' },
+    { id: 'step5', name: 'Occultum' },
   ];
 
 
@@ -63,18 +67,23 @@ export default function MandervilleTracker() {
     { id: 'head1', name: 'Base Head' },
     { id: 'head2', name: 'Head +1' },
     { id: 'head3', name: 'Head +2' },
+    { id: 'head4', name: 'Head +3' },
     { id: 'chest1', name: 'Base Chest' },
     { id: 'chest2', name: 'Chest +1' },
     { id: 'chest3', name: 'Chest +2' },
+    { id: 'chest4', name: 'Chest +3' },
     { id: 'gloves1', name: 'Base Gloves' },
     { id: 'gloves2', name: 'Gloves +1' },
     { id: 'gloves3', name: 'Gloves +2' },
+    { id: 'gloves4', name: 'Gloves +3' },
     { id: 'pants1', name: 'Base Pants' },
     { id: 'pants2', name: 'Pants +1' },
     { id: 'pants3', name: 'Pants +2' },
+    { id: 'pants4', name: 'Pants +3' },
     { id: 'boots1', name: 'Base Boots' },
     { id: 'boots2', name: 'Boots +1' },
     { id: 'boots3', name: 'Boots +2' },
+    { id: 'boots4', name: 'Boots +3' },
   ]
 
   const JOBS_COUNT = weapons.length;
@@ -89,15 +98,22 @@ export default function MandervilleTracker() {
     const savedArmorInventory = localStorage.getItem("phantomArmorInventory");
     const savedArmorProgress = localStorage.getItem("phantomArmorProgress");
 
-    setInventory(savedInventory ? JSON.parse(savedInventory) : {
+    setInventory({
+      demiatmas: 0,
       arcanite: 0,
+      waxingArcanite: 0,
+      waningArcanite: 0,
+      eclipticArcanite: 0,
+      ...(savedInventory ? JSON.parse(savedInventory) : {}),
     });
 
-    setArmorInventory(savedArmorInventory ? JSON.parse(savedArmorInventory) : {
+    setArmorInventory({
       aetherspunSilver: 0,
       aetherialFixative: 0,
       aetherspunGold: 0,
       xFixative: 0,
+      finalFinalFixative: 0,
+      ...(savedArmorInventory ? JSON.parse(savedArmorInventory) : {}),
     });
 
     if (savedWeaponProgress) {
@@ -140,20 +156,29 @@ export default function MandervilleTracker() {
   const materials = useMemo(() => [
     { id: 'demiatmas', name: 'Demiatmas (3 of each color)', category: 'Penumbrae', needed: 18 },
     { id: 'arcanite', name: 'Arcanite', category: 'Penumbrae', needed: 3 },
+    { id: 'waxingArcanite', name: 'Waxing Arcanite', category: 'Umbrae', needed: 3 },
+    { id: 'waningArcanite', name: 'Waning Arcanite', category: 'Obscurum', needed: 3 },
+    { id: 'eclipticArcanite', name: 'Ecliptic Arcanite', category: 'Eclipticum', needed: 3 },
   ], []);
 
   const calculateNeeded = useCallback((material: {id: string, needed: number}): number => {
     switch(material.id) {
-      case 'demiatmas': return 18;
-      case 'arcanite': return material.needed * JOBS_COUNT;
+      case 'demiatmas': return material.needed;
+      case 'arcanite':
+      case 'waxingArcanite':
+      case 'waningArcanite':
+      case 'eclipticArcanite': return material.needed * JOBS_COUNT;
       default: return 0;
     }
-  }, [weaponCounts]);
+  }, [JOBS_COUNT]);
 
   const calculateTotalMaterials = useCallback((material: {id: string, needed: number}, held: number): number => {
     switch(material.id) {
       case 'demiatmas': return held;
-      case 'arcanite': return material.needed * weaponCounts['step1'] + held;
+      case 'arcanite': return material.needed * (weaponCounts['step1'] || 0) + held;
+      case 'waxingArcanite': return material.needed * (weaponCounts['step2'] || 0) + held;
+      case 'waningArcanite': return material.needed * (weaponCounts['step3'] || 0) + held;
+      case 'eclipticArcanite': return material.needed * (weaponCounts['step4'] || 0) + held;
       default: return held;
     }
 
@@ -176,7 +201,7 @@ export default function MandervilleTracker() {
             progress
         };
     });
-  }, [inventory, materials, calculateNeeded]);
+  }, [inventory, materials, calculateNeeded, calculateTotalMaterials]);
 
   const handleInventoryChange = useCallback((materialId: string, value: number) => {
     setInventory(prev => {
@@ -210,6 +235,7 @@ export default function MandervilleTracker() {
     { id: 'aetherialFixative', name: 'Aetherial Fixative', category: 'Phantom Armor', needed: 3 },
     { id: 'aetherspunGold', name: 'Aetherspun Gold', category: 'Phantom Armor', needed: 3 },
     { id: 'xFixative', name: 'X-Fixative', category: 'Phantom Armor', needed: 6 },
+    { id: 'finalFinalFixative', name: 'Final Final Fixative', category: 'Phantom Armor +3', needed: 8 },
   ], []);
 
   const calculateArmorNeeded = useCallback((material: {id: string, needed: number}): number => {
@@ -218,16 +244,48 @@ export default function MandervilleTracker() {
       case 'aetherialFixative': return material.needed * ARMORS_COUNT * 5;
       case 'aetherspunGold': return material.needed * ARMORS_COUNT * 5;
       case 'xFixative': return material.needed * ARMORS_COUNT * 5;
+      case 'finalFinalFixative': return material.needed * ARMORS_COUNT * 5;
       default: return 0;
     }
-  }, [armorCounts]);
+  }, [ARMORS_COUNT]);
 
   const calculateTotalArmorMaterials = useCallback((material: {id: string, needed: number}, held: number): number => {
     switch(material.id) {
-      case 'aetherspunSilver': return material.needed * (armorCounts['head2'] + armorCounts['chest2'] + armorCounts['gloves2'] + armorCounts['pants2'] + armorCounts['boots2']) + held;
-      case 'aetherialFixative': return material.needed * (armorCounts['head2'] + armorCounts['chest2'] + armorCounts['gloves2'] + armorCounts['pants2'] + armorCounts['boots2']) + held;
-      case 'aetherspunGold': return material.needed * (armorCounts['head3'] + armorCounts['chest3'] + armorCounts['gloves3'] + armorCounts['pants3'] + armorCounts['boots3']) + held;
-      case 'xFixative': return material.needed * (armorCounts['head3'] + armorCounts['chest3'] + armorCounts['gloves3'] + armorCounts['pants3'] + armorCounts['boots3']) + held;
+      case 'aetherspunSilver': return material.needed * (
+        (armorCounts['head2'] || 0) +
+        (armorCounts['chest2'] || 0) +
+        (armorCounts['gloves2'] || 0) +
+        (armorCounts['pants2'] || 0) +
+        (armorCounts['boots2'] || 0)
+      ) + held;
+      case 'aetherialFixative': return material.needed * (
+        (armorCounts['head2'] || 0) +
+        (armorCounts['chest2'] || 0) +
+        (armorCounts['gloves2'] || 0) +
+        (armorCounts['pants2'] || 0) +
+        (armorCounts['boots2'] || 0)
+      ) + held;
+      case 'aetherspunGold': return material.needed * (
+        (armorCounts['head3'] || 0) +
+        (armorCounts['chest3'] || 0) +
+        (armorCounts['gloves3'] || 0) +
+        (armorCounts['pants3'] || 0) +
+        (armorCounts['boots3'] || 0)
+      ) + held;
+      case 'xFixative': return material.needed * (
+        (armorCounts['head3'] || 0) +
+        (armorCounts['chest3'] || 0) +
+        (armorCounts['gloves3'] || 0) +
+        (armorCounts['pants3'] || 0) +
+        (armorCounts['boots3'] || 0)
+      ) + held;
+      case 'finalFinalFixative': return material.needed * (
+        (armorCounts['head4'] || 0) +
+        (armorCounts['chest4'] || 0) +
+        (armorCounts['gloves4'] || 0) +
+        (armorCounts['pants4'] || 0) +
+        (armorCounts['boots4'] || 0)
+      ) + held;
       default: return held;
     }
   }, [armorCounts]);
@@ -248,7 +306,7 @@ export default function MandervilleTracker() {
             progress
         };
     });
-  }, [armorInventory, armorMaterials, calculateArmorNeeded]);
+  }, [armorInventory, armorMaterials, calculateArmorNeeded, calculateTotalArmorMaterials]);
 
   const handleArmorInventoryChange = useCallback((materialId: string, value: number) => {
     setArmorInventory(prev => {
